@@ -17,13 +17,17 @@ print(date("d-m-Y H:i:s\n"));
 
 // Define db connect
 $connect = mysql_connect("localhost","user","password");
-if (!connect)
+if (!$connect)
 {
 die('Could not connect: ' . mysql_error());
 }
 
 // Define db select
-mysql_select_db("$db", $connect);
+$check_db = mysql_select_db("$db", $connect);
+if (!$check_db)
+{
+die('DB does not exists: ' . mysql_error());
+}
 
 // INSERT Loop with INSERT TO table, SELECT the value, write it to a log file and display this value on the STDOUT
 for($i=1;$i<$nb;$i++){
