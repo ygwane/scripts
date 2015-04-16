@@ -21,7 +21,12 @@ RETVAL=0
 
 # Functions
 start() {
-	[ -x ${PROG} ] || echo "${PROG} is missing" ; exit 5
+	if [ ! -x ${PROG} ]
+	then
+        	echo "${PROG} is missing"
+        	exit 5
+        fi
+        
 	[ ${UID} -ne 0 ] && exit 4
 	echo -n "Starting ${NAME}: "
 	if [ -f ${LOCKFILE} ]
