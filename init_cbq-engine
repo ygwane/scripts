@@ -1,0 +1,82 @@
+#!/bin/bash
+#
+# description: Start up Couchbase Query Engine as daemon service
+# usage: CentOS based init script used for N1ql dp4
+# chkconfig: 2345 99 99
+# processname: cbq-engine
+#
+
+# source function library
+. /etc/rc.d/init.d/functions
+
+# Vars
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+NAME=cbq-engine
+PROG=/opt/cbq-dp4/${NAME}
+LOGFILE=/var/log/${NAME}
+LOCKFILE=/var/lock/subsys/${NAME}
+PIDFILE=/var/run/${NAME}.pid
+ARGS="-datastore http://127.0.0.1:8091 >> ${LOGFILE} 2>&1"
+RETVAL=0
+
+# Functions
+start() {
+	[ -x ${PROG} ] || exit 5
+	[ ${UID} -ne 0 ] && exit 4
+	echo -n "Starting ${NAME}: "
+	if [ -f ${LOCKFILE} ]
+	then
+		echo "Lock file already exists ... Exiting !"
+		exit 1
+	else
+		daemon --pidfile ${PIDFILE} "nohup ${PROG} ${ARGS} &"
+		RETVAL=${?}
+		[ ${RETVAL} -eq 0 ] && touch ${LOCKFILE} && success || failure
+		echo $(pidof ${NAME}) > ${PIDFILE}
+		echo
+		return ${RETVAL}
+	fi
+}
+
+stop() {
+	[ ${UID} -ne 0 ] && exit 4
+	echo -n "Stopping ${NAME}: "
+	killproc -p ${PIDFILE} && success || failure
+	RETVAL=${?}
+	[ ${RETVAL} -eq 0 ] && rm -f ${LOCKFILE}
+	echo
+	return ${RETVAL}
+}
+
+restart() {
+	stop
+	start
+}
+
+rh_status() {
+	status ${NAME}
+	RETVAL=${?}
+	return ${RETVAL}
+}
+
+case "${1}" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	status)
+		rh_status
+		;;
+	restart)
+		restart
+		;;
+	*)
+		echo "Usage: ${0} {start|stop|restart|status}"
+		exit 1
+esac
+
+exit ${RETVAL}
+
+# EOS
