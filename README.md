@@ -1,5 +1,5 @@
-php_scripts
+Scripts
 ===========
 
-PHP scripts
+Essentially Bash & PHP scripts
 
