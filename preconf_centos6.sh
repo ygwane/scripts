@@ -1,11 +1,11 @@
 #!/bin/bash
 #
-# Preconfig new centos SRV
+# Preconfig new centos 6 SRV x86_64 based
 #
 # GG _ 170515
-###########################
+##########################################
 
-## asking hostname
+## asking hostname & confirm it
 echo -n "Enter hostname to use for this new server: "
 read SRVNAME
 
@@ -31,6 +31,7 @@ sed -i -e "s/localhost.localdomain/\\${SRVNAME}/g" /etc/sysconfig/network
 source /etc/sysconfig/network
 
 ## disable selinux
+echo
 echo "Disabling SELinux now"
 echo
 setenforce 0
@@ -38,31 +39,38 @@ sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 sed -i -e 's/SELINUXTYPE=targeted/SELINUXTYPE=disabled/g' /etc/sysconfig/selinux
 
 ## disable iptables
+echo
 echo "Disabling IPtables now"
 echo
 chkconfig iptables off && service iptables stop
 
 ## add repos & first yum exec
+echo
 echo "Install EPEL & RPMForge"
 echo
 rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 rpm -Uvh http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+echo
 echo "Yum update & install Basics RPMs"
 echo
 yum update -y
 yum install -y htop ntp vsftpd wget curl nc rsync mlocate vim-enhanced
 
 ## config ntp
+echo
 echo "Config NTP"
 echo
 chkconfig ntpd on && service ntpd stop && service ntpd start
 
 ## SSH keygen
+echo
 echo "Generate local SSH Keys"
 echo
 ssh-keygen
 
 ##
+echo
 echo -n "Preconf of this server is finished, Now you have to REBOOT !"
+echo
 
 # EOS
