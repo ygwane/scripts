@@ -1,0 +1,68 @@
+#!/bin/bash
+#
+# Preconfig new centos SRV
+#
+# GG _ 170515
+###########################
+
+## asking hostname
+echo -n "Enter hostname to use for this new server: "
+read SRVNAME
+
+echo -n "hostname will be: ${SRVNAME}, confirm (Y/N) "
+read CONF
+case ${CONF} in
+  Y)
+    echo "hostname is ${SRVNAME}, we will define it now"
+    ;;
+  N)
+    echo "bad hostname: ${SRVNAME}, you have to re-launch this script with good hostname"
+	exit 0
+	;;
+  *)
+    echo "Syntax error, enter Y or N, exiting ..."
+	exit 1
+	;;
+esac
+
+## config hostname
+hostname ${SRVNAME}
+sed -i -e "s/localhost.localdomain/\\${SRVNAME}/g" /etc/sysconfig/network
+source /etc/sysconfig/network
+
+## disable selinux
+echo "Disabling SELinux now"
+echo
+setenforce 0
+sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+sed -i -e 's/SELINUXTYPE=targeted/SELINUXTYPE=disabled/g' /etc/sysconfig/selinux
+
+## disable iptables
+echo "Disabling IPtables now"
+echo
+chkconfig iptables off && service iptables stop
+
+## add repos & first yum exec
+echo "Install EPEL & RPMForge"
+echo
+rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+rpm -Uvh http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
+echo "Yum update & install Basics RPMs"
+echo
+yum update -y
+yum install -y htop ntp vsftpd wget curl nc rsync mlocate vim-enhanced
+
+## config ntp
+echo "Config NTP"
+echo
+chkconfig ntpd on && service ntpd stop && service ntpd start
+
+## SSH keygen
+echo "Generate local SSH Keys"
+echo
+ssh-keygen
+
+##
+echo -n "Preconf of this server is finished, Now you have to REBOOT !"
+
+# EOS
