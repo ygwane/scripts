@@ -68,7 +68,7 @@ service ntpd start
 echo
 echo "Create /downloads and /scripts directories"
 echo
-mkdir /scripts
+mkdir /root/scripts
 mkdir /downloads
 
 ## SSH keygen
