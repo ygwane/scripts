@@ -60,7 +60,16 @@ yum install -y htop ntp vsftpd wget curl nc rsync mlocate vim-enhanced
 echo
 echo "Config NTP"
 echo
-chkconfig ntpd on && service ntpd stop && service ntpd start
+chkconfig ntpd on
+service ntpd stop
+service ntpd start
+
+## create bases directories
+echo
+echo "Create /downloads and /scripts directories"
+echo
+mkdir /scripts
+mkdir /downloads
 
 ## SSH keygen
 echo
