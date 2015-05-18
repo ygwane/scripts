@@ -54,7 +54,7 @@ echo
 echo "Yum update & install Basics RPMs"
 echo
 yum update -y
-yum install -y htop iotop nload ntp vsftpd wget curl nc rsync mlocate vim-enhanced
+yum install -y htop iotop nload ntp vsftpd wget curl telnet nc rsync mlocate vim-enhanced
 
 ## config ntp
 echo
