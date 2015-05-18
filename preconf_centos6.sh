@@ -5,6 +5,10 @@
 # GG _ 170515
 ##########################################
 
+## ensure that network is correctly defined
+echo -n "First, ensure that network is up, otherwise this script can't be correctly executed. To continue press [Enter], or to exit now: [CTRL + C] "
+read
+
 ## asking hostname & confirm it
 echo -n "Enter hostname to use for this new server: "
 read SRVNAME
