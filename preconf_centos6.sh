@@ -38,7 +38,7 @@ source /etc/sysconfig/network
 echo
 echo "Disabling SELinux now"
 echo
-setenforce 0
+/usr/sbin/setenforce 0
 sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 sed -i -e 's/SELINUXTYPE=targeted/SELINUXTYPE=disabled/g' /etc/sysconfig/selinux
 
