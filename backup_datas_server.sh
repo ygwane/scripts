@@ -33,7 +33,8 @@ function ARCH()
     for REP in ${DIR[@]}
     do
         echo -e "\033[32m${REP} will be compressed to ${BACKUPDIR}!\033[0m"
-        tar -czvf ${BACKUPDIR}/${REP}_${SRV}.tar.gz ${REP}
+        saved_dir=$(echo ${REP} | sed -e 's#^/##' -e 's#/#_#')
+        tar -czvf ${BACKUPDIR}/${saved_dir}_${SRV}.tar.gz ${REP}
     done
 }
 
@@ -59,6 +60,7 @@ then
     rm -f ${LCK}
 else
     MailNotif "$(date +%c) : ${BACKUPDIR} is unreachable, execution aborted ..."
+    exit 1
 fi
 
 echo -e "######################################################################################"
