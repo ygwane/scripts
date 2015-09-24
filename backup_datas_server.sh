@@ -11,7 +11,7 @@
 SRV=$(/bin/hostname)
 MAIL=user@domain.com
 LOG=/var/log/backup_${SRV}.log
-BACKUPDIR=/mnt/backupdir/
+BACKUPDIR=/mnt/backupdir
 LCK=/tmp/backup_${SRV}.lock
 
 DIR=(
