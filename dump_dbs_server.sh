@@ -9,7 +9,7 @@
 
 ## VARS
 SRV=$(/bin/hostname)
-MAIL="admin@1001-jeux.com"
+MAIL=user@domain.com
 LOG=/var/log/dump_${SRV}.log
 BACKUPDIR=/mnt/backup
 LCK=/tmp/dump_${SRV}.lock
