@@ -15,7 +15,9 @@ BACKUPDIR=/mnt/backup
 LCK=/tmp/dump_${SRV}.lock
 
 DBs=(
-
+BASE1
+BASE2
+BASE3
 )
 
 ## FUNCTIONS
@@ -27,7 +29,7 @@ function MailNotif()
 
 function DUMP()
 {
-    for BASE in ${DIR[@]}
+    for BASE in ${DBs[@]}
     do
         echo -e "\033[32m${BASE} will be dumped to ${BACKUPDIR}!\033[0m"
         mysqldump -uroot ${BASE} > ${BACKUPDIR}/${BASE}_${SRV}.sql
