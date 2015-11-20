@@ -16,6 +16,7 @@ BACKUPDIR=/mnt/backup/DUMPS
 LCK=/tmp/dump_${SRV}.lock
 USER=user
 PASSWORD="xxxxxxxxxxxx"
+DATE=$(date +"%d%m%Y")
 
 DBs=(
 DB1
@@ -43,10 +44,14 @@ function DUMP()
 
 function ARCH()
 {
-    echo -e "\033[32mDelete old sql files into ${BACKUPDIR}\033[0m"
-    rm -f ${BACKUPDIR}/*.sql > /dev/null 2>&1
-    echo -e "\033[32mCopy sql files from ${LOCALDIR} to ${BACKUPDIR}\033[0m"
-    cp -rp ${LOCALDIR}/*.sql ${BACKUPDIR}/
+     echo -e "\033[32mCreating archive (tar.gz) for dumps produced on ${DATE}\033[0m"
+     tar -czvf ${LOCALDIR}/DBS_DUMPS_${DATE}.tar.gz ${LOCALDIR}/*.sql
+     echo -e "\033[32mCopy dump archive file from ${LOCALDIR} to ${BACKUPDIR}\033[0m"
+     cp -rp ${LOCALDIR}/*.tar.gz ${BACKUPDIR}/
+     echo -e "\033[32mDelete archives older than 5 days in ${LOCALDIR}\033[0m"
+     find ${LOCALDIR}/*.tar.gz -mtime +5 -exec rm {} \;
+     echo -e "\033[32mDelete archives older than 5 days in ${BACKUPDIR}\033[0m"
+     find ${BACKUPDIR}/*.tar.gz -mtime +5 -exec rm {} \;
 }
 
 ## EXEC
