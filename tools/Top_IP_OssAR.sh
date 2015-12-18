@@ -9,7 +9,7 @@
 ###########
 # VAR
 TOP=1
-MAIL=ygwane@gmail.com
+MAIL=user@mail.com
 TILF=/tmp/topIP.log
 REPORT=/tmp/resultIP.log
 ARLF=/var/ossec/logs/active-responses.log
