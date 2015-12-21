@@ -2,7 +2,7 @@
 #
 # Preconfig new centos 6 SRV x86_64 based
 #
-# GG _ 170515
+# GG _ 2015
 ##########################################
 
 ## ensure that network is correctly defined
