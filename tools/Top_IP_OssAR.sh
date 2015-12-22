@@ -36,7 +36,7 @@ fi
 # Parse log file to make top with pos IP Country and blocked number. Output: stdout & log file
 for IP in $(cat ${TILF} | awk -F " " '{print $2}')
 do
-        COUNTRY=$(geoiplookup ${IP} | cut -d "," -f2)
+        COUNTRY=$(geoiplookup ${IP} | grep "Country" | awk -F ': ' '{print $2}' | cut -d "," -f2)
         NB=$(cat ${TILF} | grep ${IP} | awk -F " " '{print $1}')
         echo "Top ${TOP} => IP: ${IP} from ${COUNTRY} was blocked ${NB} times" | tee -a ${REPORT}
         TOP=$((TOP+1))
