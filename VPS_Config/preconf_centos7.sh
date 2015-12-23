@@ -28,7 +28,7 @@ systemctl stop firewalld
 echo
 echo "Installing basics"
 echo
-yum install -y htop iotop nload nmap ntp unzip telnet traceroute nc bind-utils rsync mlocate screen ncdu
+yum install -y htop iotop nload nmap ntp unzip telnet traceroute nc bind-utils rsync mlocate screen ncdu inxi
 
 # Enable NTP
 echo
