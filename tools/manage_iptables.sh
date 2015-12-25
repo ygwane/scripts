@@ -6,6 +6,7 @@
 # 1- you can add a rule to open port locally or to create a NAT rule into FORWARD table
 # 2- you can delete a rule to close port locally or to delete a NAT rule into FORWARD table
 # 3- you can also list loaded rules w/ numeric port display
+# 4- you can drop IP address to avoid brute force
 #
 # Note: this script edit the iptables rules files and reload iptables with his config file,
 # we will not add or remove rules dynamically. (e.g: iptables -I INPUT ...)
@@ -196,5 +197,4 @@ case "${VAR}" in
 
 esac
 
-#
-# EOS #
+# EOS
