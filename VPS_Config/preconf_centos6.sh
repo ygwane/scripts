@@ -31,7 +31,8 @@ esac
 
 ## config hostname
 hostname ${SRVNAME}
-sed -i -e "s/localhost.localdomain/\\${SRVNAME}/g" /etc/sysconfig/network
+sed -i -e "/HOSTNAME=/d" /etc/sysconfig/network
+sed -i -e "/NETWORKING=yes/a HOSTNAME=${SRVNAME}" /etc/sysconfig/network
 source /etc/sysconfig/network
 
 ## disable selinux
