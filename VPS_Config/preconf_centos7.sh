@@ -24,6 +24,12 @@ echo
 systemctl mask firewalld
 systemctl stop firewalld
 
+# Install repos
+echo
+echo "Installing repos"
+echo
+rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
 # Install basics
 echo
 echo "Installing basics"
