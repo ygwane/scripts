@@ -47,3 +47,10 @@ service ntpd restart
 echo
 echo "Create /downloads and /scripts directories"
 echo
+mkdir /downloads && mkdir /root/scripts
+
+# Reboot
+echo
+echo "Press enter to reboot now (ctrl + C to exit)"
+read
+reboot
