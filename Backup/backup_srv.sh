@@ -14,7 +14,7 @@
 
 ## VARS
 SRV=$(/bin/hostname -s)
-MAIL=admin@sysgwan.fr
+MAIL=user@domain.com
 LOG=/var/log/backup_srv_${SRV}.log
 LCK=/tmp/backup_srv_${SRV}.lock
 DATE=$(date +%d%m%Y_%HH%Mm)
@@ -25,9 +25,9 @@ BACKUPSYSDIR=/mnt/backup/files
 KEEPFILESDAYS=5
 KEEPDBDAYS=15
 KEEPDBMONTHS=12
-MYSQL_USER="backup"
+MYSQL_USER="USER"
 MYSQL=/usr/bin/mysql
-MYSQL_PASSWORD="B4cKuPpa5sw0rD"
+MYSQL_PASSWORD="PASSWORD"
 MYSQLDUMP=/usr/bin/mysqldump
 
 declare -a DIR=(
