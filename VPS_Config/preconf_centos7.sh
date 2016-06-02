@@ -24,6 +24,14 @@ echo
 systemctl mask firewalld
 systemctl stop firewalld
 
+# Install iptables service
+echo
+echo "Install iptables service, enabled"
+echo
+yum install -y iptables-service
+systemctl enable iptables 
+service iptables start
+
 # Install repos
 echo
 echo "Installing repos"
@@ -34,20 +42,26 @@ rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 echo
 echo "Installing basics"
 echo
-yum install -y htop iotop nload nmap ntp unzip telnet traceroute nc bind-utils rsync mlocate screen ncdu inxi
+yum install -y htop iotop nload nmap chrony unzip telnet traceroute nc bind-utils rsync mlocate screen ncdu inxi
 
-# Enable NTP
+# Enable Chronyd
 echo
-echo "Start NTPD"
+echo "Start Chrony"
 echo
-systemctl enable ntpd
-service ntpd restart
+systemctl enable chronyd
+service chronyd restart
 
 # Create bases directories
 echo
 echo "Create /downloads and /scripts directories"
 echo
 mkdir /downloads && mkdir /root/scripts
+
+# Generate SSH key
+echo
+echo "Generate SSH Key"
+echo
+ssh-keygen
 
 # Reboot
 echo
